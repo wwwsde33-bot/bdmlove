@@ -20,6 +20,31 @@
             --lang-btn-active: #ffffff;
             --lang-text-active: #000000;
         }
+
+        /* [추가] 오른쪽 상단 링크 스타일 */
+        .top-right-link {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            z-index: 1001;
+        }
+        .top-right-link a {
+            color: var(--text-main);
+            text-decoration: none;
+            background-color: var(--lang-btn-bg);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .top-right-link a:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+
         body {
             font-family: 'Pretendard', sans-serif;
             background-color: var(--bg-color);
@@ -104,6 +129,10 @@
     </style>
 </head>
 <body>
+
+    <div class="top-right-link">
+        <a href="sub/">뉴비 가이드</a>
+    </div>
 
     <nav class="navbar">
         <div class="nav-logo">
