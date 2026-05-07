@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥똥메 - 공식 가이드</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+        :root {
+            --bg-color: #0c0e10;
+            --card-bg: #141619;
+            --nav-bg: #141619;
+            --text-main: #e0e6ed;
+            --text-sub: #94a3b8;
+            --accent-color: #00d2ff;
+            --border-color: #2d343f;
+            --stat-bg: #1e2228;
+        }
 
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo { font-weight: 800; font-size: 1.2rem; color: #fff; }
+
+        .main-content { padding: 30px 20px; width: 100%; max-width: 800px; box-sizing: border-box; }
+        
+        .guide-container { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+
+        .guide-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .guide-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .guide-header:hover { background: #1c2025; }
+
+        .guide-header h2 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-arrow {
+            color: var(--text-sub);
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .guide-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: #0f1114;
+        }
+
+        .guide-card.active { border-color: var(--accent-color); }
+        .guide-card.active .guide-content {
+            max-height: 3000px; 
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+        .guide-card.active .icon-arrow {
+            transform: rotate(180deg);
+            color: var(--accent-color);
+        }
+
+        .guide-text { line-height: 1.8; color: var(--text-main); font-size: 0.95rem; }
+        .guide-text b { color: #fff; }
+        .guide-text ul { padding-left: 20px; margin: 12px 0; list-style-type: disc; }
+        .guide-text li { margin-bottom: 10px; color: var(--text-main); }
+        
+        .badge {
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+
+        .highlight-box {
+            background: var(--stat-bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .info-tip {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">💩 밥똥메 공식 가이드</div>
+    </nav>
+
+    <div class="main-content">
+        <div class="guide-container">
+            
+            <div class="guide-card">
+                <div class="guide-header" onclick="toggleGuide(this)">
+                    <h2><span class="badge">Guide 01</span> 환생</h2>
+                    <span class="icon-arrow">▼</span>
+                </div>
+                <div class="guide-content">
+                    <div class="guide-text">
+                        <b>[ 단계별 환생 권장 루트 ]</b>
+                        <ul>
+                            <li><b>1번째 환생:</b> 120레벨 진행 (이후 환생포인트로 <span class="badge">하이퍼 포인트 1</span> 투자)</li>
+                            <li><b>2번째 환생:</b> 180~190레벨 진행 (<span class="badge">하이퍼 포인트 3</span> 투자, 남은 포인트는 <b>데미지</b> 전부 투자)</li>
+                            <li><b>3~5번째 환생:</b> 200레벨 진행 (<b>크확 50</b> 달성 후, 남은 포인트는 <b>데미지/경획</b> 분산 투자)</li>
+                            <li><b>5번째 환생 이후:</b> 200레벨 이상에서 1업당 <b>10분</b> 넘어갈 시 즉시 환생 (데미지/경획 100레벨 도달 이후에는 데미지만 투자)</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <b>💡 사냥터 및 데미지 최적화 팁</b><br>
+                            효율적인 투자를 위해 직접 테스트가 필요합니다.<br>
+                            현재 사냥터 1킬, 다음 사냥터 2킬, 다다음 사냥터 3킬인 상황이라면? <br>
+                            → <span style="color:var(--accent-color)">다다음 사냥터가 <b>2킬</b>이 될 때까지 데미지를 찍으세요.</span><br>
+                            → 2킬 달성 시 잠시 경획을 올리고, 다음 3킬 사냥터가 2킬이 될 때까지 다시 데미지를 찍는 과정을 반복합니다.
+                        </div>
+
+                        <b>[ 환포 수급 ]</b><br>
+                        <ul>
+                            <li>첫째, 하루 <b>20회 환생</b>을 꼬박꼬박 완료해야 합니다.</li>
+                            <li>둘째, 자고 일어나서 1회 환생이후 자정 전까지 남은 시간을 계산하여 효율적으로 19회를 마칩니다.</li>
+                        </ul>
+
+                        <span class="info-tip">※ 1킬 사냥보다 다음 사냥터가 존재할 시 <b>다음 사냥터 2킬 사냥</b>이 경험치를 더 잘 먹습니다.</span>
+                        <span class="info-tip">※ 5번째 환생 이후 업당 10분넘어갈시 환생은 하루 환생 20번을 안했을때 기준입니다.</span>
+                        <span class="info-tip">※ 20회 환생 관련 모르는 게 있을 시 <b>사랑</b> 개인 DM 주시면 알려드립니다.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header" onclick="toggleGuide(this)">
+                    <h2><span class="badge">Guide 02</span> 환생포인트</h2>
+                    <span class="icon-arrow">▼</span>
+                </div>
+                <div class="guide-content">
+                    <div class="guide-text">
+                        <b>[ 우선 순위 ]</b>
+                        <ul>
+                            <li><b>하이퍼 포인트 4</b></li>
+                            <li><b>크확 100% 맞추기</b> (도감 획득 수치를 제외한 본인 크확 파악 후 부족한 만큼 투자)</li>
+                            <li><b>데미지 100</b></li>
+                            <li><b>경획 100</b></li>
+                            <li>이후 <b>데미지 우선순위</b>로 투자하되, 경획과 적절히 분산 투자</li>
+                            <li><b>자사(자동사냥):</b> 개인의 자유이나, 효율이 낮은 극초반 투자는 피하는 것을 권장</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            ※ <b>메획/아획은 절대 투자하지 않습니다.</b><br>
+                            ※ <b>1차 스탯을 전체 마스터해야 2차 스탯을 투자할 수 있습니다.</b><br>
+                            (단, 크확 50레벨 및 하이퍼 포인트 4레벨 달성 시 해당 스탯은 마스터로 취급되어 2차 스탯 개방이 가능합니다.)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header" onclick="toggleGuide(this)">
+                    <h2><span class="badge">Guide 03</span> 다이아</h2>
+                    <span class="icon-arrow">▼</span>
+                </div>
+                <div class="guide-content">
+                    <div class="guide-text">
+                        <b>[ 효율적인 다이아 사용 우선 순위 ]</b>
+                        <ul>
+                            <li><b>펫 성장:</b> 펫 6레벨 도달 이후, <b>레전더리 펫 1마리</b>를 뽑을 때까지 우선적으로 투자합니다.</li>
+                            <li><b>코스튬 보유효과:</b> 코스튬 보유효과를 통해 <b>주스탯 1500</b>을 달성할 때까지 코스튬 구매 (무기 코스튬 구매 추천)</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <b>💡 코스튬 팁</b><br>
+                            코스튬 메뉴 클릭 후 좌측 상단의 <span class="badge">?</span> 아이콘을 누르면 현재 적용 중인 <b>보유효과</b>를 확인할 수 있습니다.
+                        </div>
+
+                        <span class="info-tip">※ <b>경험치 쿠폰 2배</b>를 다이아로 구매하는 것은 효율이 낮아 권장하지 않습니다.</span>
+                        <span class="info-tip">※ <b>자유 전직권</b> 및 <b>환포 초기화권</b>은 가급적 구매하지 마세요.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-header" onclick="toggleGuide(this)">
+                    <h2><span class="badge">Guide 04</span> 꿀팁</h2>
+                    <span class="icon-arrow">▼</span>
+                </div>
+                <div class="guide-content">
+                    <div class="guide-text">
+                        <b>[ 던전 및 장비 ]</b>
+                        <ul>
+                            <li><b>던전 티켓:</b> 매일 00시 기준으로 <b>5장까지 리필</b>됩니다. (남은 장수에 상관없이 총 5장이 되도록 충전되니 매일 모두 소진하세요.)</li>
+                            <li><b>환생의 불꽃:</b> 장비 기본 능력치의 <b>최대 50%</b>까지 부여됩니다. (예: 기본 주스탯 10, 공 50인 경우 환불 최대치는 주스탯 5, 공 25)</li>
+                        </ul>
+
+                        <b>[ 개인 사냥터 활용 (파티 던전) ]</b>
+                        <div class="highlight-box">
+                            겹사가 싫다면? <b>메뉴 - 파티 - 파티 생성 - 원하는 사냥터 선택 - 파티 채널 이동</b>을 이용하세요. 파티원(또는 본인 혼자)만 입장할 수 있는 쾌적한 사냥이 가능합니다.
+                        </div>
+
+                        <b>[ 주간 보스 최적화 ]</b>
+                        <ul>
+                            <li><b>코인 수급:</b> 주간 보스는 최대 1000코인까지 획득 가능하며, <b>1억 데미지당 1코인</b>이 지급됩니다.</li>
+                            <li><b>딜링 최적화 팁:</b> 
+                                <ul>
+                                    <li>재접속 후 사냥터에 들어가지 말고 <b>로비</b>에서 스킬을 정비하세요.</li>
+                                    <li>온오프 스킬을 미리 켜고, 스킬 배치칸에 1~4차 액티브 스킬을 전부 배치합니다.</li>
+                                    <li>모든 스킬을 <b>동시에 꾸욱 누르면</b> 씹힘 없이 모든 스킬이 동시에 나갑니다.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <span class="info-tip">※ 사냥터에 진입한 후 여러 스킬을 사용하거나, 재접속 없이 스킬을 동시에 누르면 스킬이 씹힐 수 있습니다.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleGuide(header) {
+            const card = header.parentElement;
+            card.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
