@@ -21,30 +21,6 @@
             --lang-text-active: #000000;
         }
 
-        /* [추가] 오른쪽 상단 링크 스타일 */
-        .top-right-link {
-            position: absolute;
-            top: 12px;
-            right: 20px;
-            z-index: 1001;
-        }
-        .top-right-link a {
-            color: var(--text-main);
-            text-decoration: none;
-            background-color: var(--lang-btn-bg);
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-        .top-right-link a:hover {
-            background-color: var(--accent-color);
-            color: #000;
-            border-color: var(--accent-color);
-        }
-
         body {
             font-family: 'Pretendard', sans-serif;
             background-color: var(--bg-color);
@@ -63,16 +39,37 @@
             border-bottom: 1px solid var(--border-color);
             padding: 10px 20px;
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between; /* 양 끝 정렬로 변경 */
             align-items: center;
-            gap: 20px;
             box-sizing: border-box;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
+        .nav-left { display: flex; align-items: center; gap: 20px; }
         .nav-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.1rem; color: #fff; white-space: nowrap; }
+
+        .nav-right { display: flex; align-items: center; gap: 12px; } /* 링크와 버튼 사이 간격 */
+
+        /* 뉴비 가이드 링크 스타일 */
+        .guide-link {
+            color: var(--text-main);
+            text-decoration: none;
+            background-color: var(--lang-btn-bg);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .guide-link:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
 
         .lang-selector { display: flex; gap: 5px; }
         .lang-btn {
@@ -130,19 +127,22 @@
 </head>
 <body>
 
-    <div class="top-right-link">
-        <a href="sub/">뉴비 가이드</a>
-    </div>
-
     <nav class="navbar">
-        <div class="nav-logo">
-            <span>💩</span> <span data-i18n="nav_title">밥똥메 계산기</span>
+        <div class="nav-left">
+            <div class="nav-logo">
+                <span>💩</span> <span data-i18n="nav_title">밥똥메 계산기</span>
+            </div>
         </div>
-        <div class="lang-selector">
-            <button class="lang-btn active" onclick="changeLanguage('ko')" data-lang="ko">한국어</button>
-            <button class="lang-btn" onclick="changeLanguage('en')" data-lang="en">EN</button>
-            <button class="lang-btn" onclick="changeLanguage('zh')" data-lang="zh">简体</button>
-            <button class="lang-btn" onclick="changeLanguage('tw')" data-lang="tw">繁體</button>
+        
+        <div class="nav-right">
+            <a href="sub/" class="guide-link" data-i18n="nav_guide">뉴비 가이드</a>
+            
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="changeLanguage('ko')" data-lang="ko">한국어</button>
+                <button class="lang-btn" onclick="changeLanguage('en')" data-lang="en">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('zh')" data-lang="zh">简体</button>
+                <button class="lang-btn" onclick="changeLanguage('tw')" data-lang="tw">繁體</button>
+            </div>
         </div>
     </nav>
 
@@ -251,7 +251,7 @@
     <script>
         const i18n = {
             ko: {
-                nav_title: "밥똥메 계산기", card1_title: "환생 & 스탯 계산기", card2_title: "종합 효율 계산",
+                nav_title: "밥똥메 계산기", nav_guide: "뉴비 가이드", card1_title: "환생 & 스탯 계산기", card2_title: "종합 효율 계산",
                 label_rebirth_lv: "환생 레벨 포인트 확인 (100~300)", btn_start: "시작", btn_stop: "정지", btn_reset: "리셋", btn_apply: "기록 반영",
                 stat_group_1: "1차 스탯 (펼치기)", stat_group_2: "2차 스탯 (펼치기)",
                 stat_dmg: "데미지", stat_exp: "추가경험치", stat_crit: "크리티컬", stat_meso: "메소획득", stat_drop: "아이템드롭", stat_speed: "자동공속",
@@ -263,7 +263,7 @@
                 time_hour: "시간 ", time_min: "분 ", time_sec: "초", time_lack: "시간부족", alert_measure: "측정 데이터를 입력해주세요."
             },
             en: {
-                nav_title: "BBM Calc", card1_title: "Rebirth & Stat", card2_title: "Efficiency Calc",
+                nav_title: "BBM Calc", nav_guide: "Newbie Guide", card1_title: "Rebirth & Stat", card2_title: "Efficiency Calc",
                 label_rebirth_lv: "Check Point (100-300)", btn_start: "Start", btn_stop: "Stop", btn_reset: "Reset", btn_apply: "Apply",
                 stat_group_1: "1st Stats (Expand)", stat_group_2: "2nd Stats (Expand)",
                 stat_dmg: "Damage", stat_exp: "Bonus EXP", stat_crit: "Critical", stat_meso: "Meso", stat_drop: "Drop", stat_speed: "Atk Speed",
@@ -275,7 +275,7 @@
                 time_hour: "h ", time_min: "m ", time_sec: "s", time_lack: "Lack of Time", alert_measure: "Please enter measure data."
             },
             zh: {
-                nav_title: "转生计算器", card1_title: "转生 & 属性", card2_title: "效率计算",
+                nav_title: "转生计算器", nav_guide: "新手指南", card1_title: "转生 & 属性", card2_title: "效率计算",
                 label_rebirth_lv: "确认点数 (100-300)", btn_start: "开始", btn_stop: "停止", btn_reset: "重置", btn_apply: "记录",
                 stat_group_1: "1次属性 (展开)", stat_group_2: "2次属性 (展开)",
                 stat_dmg: "伤害", stat_exp: "额外经验", stat_crit: "暴击", stat_meso: "金币", stat_drop: "掉落", stat_speed: "攻速",
@@ -287,13 +287,13 @@
                 time_hour: "时 ", time_min: "分 ", time_sec: "秒", time_lack: "时间不足", alert_measure: "请输入测量数据。"
             },
             tw: {
-                nav_title: "轉生計算器", card1_title: "轉生 & 屬性", card2_title: "效率計算",
+                nav_title: "轉生計算器", nav_guide: "新手指南", card1_title: "轉生 & 屬性", card2_title: "效率計算",
                 label_rebirth_lv: "確認點數 (100-300)", btn_start: "開始", btn_stop: "停止", btn_reset: "重置", btn_apply: "記錄",
                 stat_group_1: "1次屬性 (展開)", stat_group_2: "2次屬性 (展開)",
                 stat_dmg: "傷害", stat_exp: "額外經驗", stat_crit: "暴擊", stat_meso: "金幣", stat_drop: "掉落", stat_speed: "攻速",
                 stat_crit_dmg: "暴擊傷害", stat_main_stat: "主屬性%", stat_ignore_def: "無視防禦",
                 result_need_point: "所需轉生點合計", label_measure_range: "測量區間", label_measure_time: "所需時間 (分 : 秒)",
-                label_exp_min: "每分鐘經驗 (M)", label_cur_lv: "當前等級", label_tar_lv: "目標等級", label_rem_time: "距離午夜時間", label_rem_rebirth: "剩餘次數 (最大 20)",
+                label_exp_min: "每分鐘經驗 (M)", label_cur_lv: "當前等級", label_tar_lv: "目標等級", label_rem_time: "距離午夜時間", label_rem_遞迴: "剩餘次數 (最大 20)",
                 btn_calc_eff: "綜合效率計算", result_time_to_tar: "目標所需時間", result_point_at_tar: "到達時點數",
                 result_best_lv: "最高效率推薦等級", result_rem_count: "最佳次數", result_total_gain: "預計總點數",
                 time_hour: "時 ", time_min: "分 ", time_sec: "秒", time_lack: "時間不足", alert_measure: "請輸入測量數據。"
