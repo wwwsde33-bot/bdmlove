@@ -39,7 +39,7 @@
             border-bottom: 1px solid var(--border-color);
             padding: 10px 20px;
             display: flex;
-            justify-content: space-between; /* 양 끝 정렬로 변경 */
+            justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
             position: sticky;
@@ -50,9 +50,8 @@
         .nav-left { display: flex; align-items: center; gap: 20px; }
         .nav-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.1rem; color: #fff; white-space: nowrap; }
 
-        .nav-right { display: flex; align-items: center; gap: 12px; } /* 링크와 버튼 사이 간격 */
+        .nav-right { display: flex; align-items: center; gap: 12px; }
 
-        /* 뉴비 가이드 링크 스타일 */
         .guide-link {
             color: var(--text-main);
             text-decoration: none;
@@ -123,6 +122,19 @@
         
         .recommend-box { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-color); }
         .hidden { display: none !important; }
+
+        .recommend-time-info {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-top: -8px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .recommend-time-info span b {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -191,6 +203,40 @@
                     </div>
                 </div>
 
+                <div class="stat-section">
+                    <div class="stat-header" onclick="toggleStat('arcane_symbol')">
+                        <span data-i18n="stat_group_arcane">아케인심볼 (펼치기)</span>
+                        <span id="arcane_symbol-icon">▼</span>
+                    </div>
+                    <div id="arcane_symbol" class="stat-content">
+                        <div class="stat-item"><label data-i18n="symbol_yeoro">소멸의여로</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                        <div class="stat-item"><label data-i18n="symbol_chuchu">츄츄아일랜드</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                        <div class="stat-item"><label data-i18n="symbol_lacheln">꿈의도시레헬른</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                        <div class="stat-item"><label data-i18n="symbol_arcana">신비의숲아르카나</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                        <div class="stat-item"><label data-i18n="symbol_morass">기억의늪모라스</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                        <div class="stat-item"><label data-i18n="symbol_esfera">태초의바다에스페라</label><input type="number" class="stat-in" data-type="arcane" max="10" value="0"></div>
+                    </div>
+                </div>
+
+                <div class="stat-section">
+                    <div class="stat-header" onclick="toggleStat('equip_enhance')">
+                        <span data-i18n="stat_group_equip">장비칸강화 (펼치기)</span>
+                        <span id="equip_enhance-icon">▼</span>
+                    </div>
+                    <div id="equip_enhance" class="stat-content">
+                        <div class="stat-item"><label data-i18n="eq_hat">모자</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_top">상의</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_bottom">하의</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_gloves">장갑</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_weapon">무기</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_shoes">신발</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_eye">눈장식</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_face">얼굴장식</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_earrings">귀고리</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                        <div class="stat-item"><label data-i18n="eq_cape">망토</label><input type="number" class="stat-in" data-type="equip" max="30" value="0"></div>
+                    </div>
+                </div>
+
                 <div class="result-box" style="text-align:center;">
                     <div style="color:var(--text-sub); font-size:0.9rem; margin-bottom:8px;" data-i18n="result_need_point">필요 환생포인트 합계</div>
                     <span id="totalStatPoint" class="display-val">0</span> <span style="color:var(--accent-color); font-weight:bold; font-size:1.5rem;">P</span>
@@ -227,7 +273,7 @@
                 </div>
                 <div style="display:flex; gap:10px; margin-bottom:15px;">
                     <div style="flex:1"><label data-i18n="label_rem_time">자정까지 남은 시간</label><div style="display:flex; gap:5px;"><input type="number" id="remH" placeholder="H">:<input type="number" id="remM" placeholder="M"></div></div>
-                    <div style="flex:1"><label data-i18n="label_rem_rebirth">남은 환생 횟수 (최대 20)</label><input type="number" id="remRebirth" value="0"></div>
+                    <div style="flex:1"><label data-i18n="label_rem_rebirth">남은 환생 횟수 (최대 15)</label><input type="number" id="remRebirth" value="0"></div>
                 </div>
                 <button class="calc-btn" onclick="calTime()" data-i18n="btn_calc_eff">종합 효율 계산하기</button>
 
@@ -238,6 +284,12 @@
                     <div class="recommend-box">
                         <div style="font-size:1rem; color:var(--accent-color); font-weight:700; margin-bottom:12px;" data-i18n="result_best_lv">최고 효율 추천 환생 레벨</div>
                         <div style="font-size:2.2rem; font-weight:900; margin-bottom:15px;" id="recommendLv">-</div>
+                        
+                        <div class="recommend-time-info" id="recommendTimeDetails">
+                            <div><span data-i18n="time_per_rebirth">회당 소요 시간</span>: <b id="resTimePerRebirth">-</b></div>
+                            <div><span data-i18n="time_total_rebirth">총 소요 시간</span>: <b id="resTimeTotalRebirth">-</b></div>
+                        </div>
+
                         <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
                             <div class="sub-row"><span data-i18n="result_rem_count">최적 환생 횟수</span><span id="resRemCount" class="sub-val">-</span></div>
                             <div class="sub-row" style="margin-bottom:0;"><span data-i18n="result_total_gain">총 예상 획득 포인트</span><span id="resTotalExpected" class="sub-val highlight" style="font-size:1.1rem;">-</span></div>
@@ -254,49 +306,65 @@
                 nav_title: "밥똥메 계산기", nav_guide: "뉴비 가이드", card1_title: "환생 & 스탯 계산기", card2_title: "종합 효율 계산",
                 label_rebirth_lv: "환생 레벨 포인트 확인 (100~300)", btn_start: "시작", btn_stop: "정지", btn_reset: "리셋", btn_apply: "기록 반영",
                 stat_group_1: "1차 스탯 (펼치기)", stat_group_2: "2차 스탯 (펼치기)",
+                stat_group_arcane: "아케인심볼 (펼치기)", stat_group_equip: "장비칸강화 (펼치기)",
                 stat_dmg: "데미지", stat_exp: "추가경험치", stat_crit: "크리티컬", stat_meso: "메소획득", stat_drop: "아이템드롭", stat_speed: "자동공속",
                 stat_crit_dmg: "크리티컬 데미지", stat_main_stat: "주스탯%", stat_ignore_def: "방어력 무시",
+                symbol_yeoro: "소멸의여로", symbol_chuchu: "츄츄아일랜드", symbol_lacheln: "꿈의도시레헬른", symbol_arcana: "신비의숲아르카나", symbol_morass: "기억의늪모라스", symbol_esfera: "태초의바다에스페라",
+                eq_hat: "모자", eq_top: "상의", eq_bottom: "하의", eq_gloves: "장갑", eq_weapon: "무기", eq_shoes: "신발", eq_eye: "눈장식", eq_face: "얼굴장식", eq_earrings: "귀고리", eq_cape: "망토",
                 result_need_point: "필요 환생포인트 합계", label_measure_range: "측정 레벨 구간", label_measure_time: "소요 시간 (분 : 초)",
-                label_exp_min: "1분당 획득 경험치 (단위: M)", label_cur_lv: "현재 레벨", label_tar_lv: "목표 레벨", label_rem_time: "자정까지 남은 시간", label_rem_rebirth: "남은 환생 횟수 (최대 20)",
+                label_exp_min: "1분당 획득 경험치 (단위: M)", label_cur_lv: "현재 레벨", label_tar_lv: "목표 레벨", label_rem_time: "자정까지 남은 시간", label_rem_rebirth: "남은 환생 횟수 (최대 15)",
                 btn_calc_eff: "종합 효율 계산하기", result_time_to_tar: "목표까지 소요시간", result_point_at_tar: "도달 시 환생포인트",
                 result_best_lv: "최고 효율 추천 환생 레벨", result_rem_count: "최적 환생 횟수", result_total_gain: "총 예상 획득 포인트",
-                time_hour: "시간 ", time_min: "분 ", time_sec: "초", time_lack: "시간부족", alert_measure: "측정 데이터를 입력해주세요."
+                time_hour: "시간 ", time_min: "분 ", time_sec: "초", time_lack: "시간부족", alert_measure: "측정 데이터를 입력해주세요.",
+                time_per_rebirth: "회당 소요 시간", time_total_rebirth: "총 소요 시간"
             },
             en: {
                 nav_title: "BBM Calc", nav_guide: "Newbie Guide", card1_title: "Rebirth & Stat", card2_title: "Efficiency Calc",
                 label_rebirth_lv: "Check Point (100-300)", btn_start: "Start", btn_stop: "Stop", btn_reset: "Reset", btn_apply: "Apply",
                 stat_group_1: "1st Stats (Expand)", stat_group_2: "2nd Stats (Expand)",
+                stat_group_arcane: "Arcane Symbol (Expand)", stat_group_equip: "Equip Slots (Expand)",
                 stat_dmg: "Damage", stat_exp: "Bonus EXP", stat_crit: "Critical", stat_meso: "Meso", stat_drop: "Drop", stat_speed: "Atk Speed",
                 stat_crit_dmg: "Crit Damage", stat_main_stat: "Main Stat%", stat_ignore_def: "Ignore Def",
+                symbol_yeoro: "Vanishing Journey", symbol_chuchu: "Chu Chu Island", symbol_lacheln: "Lachelein", symbol_arcana: "Arcana", symbol_morass: "Morass", symbol_esfera: "Esfera",
+                eq_hat: "Hat", eq_top: "Top", eq_bottom: "Bottom", eq_gloves: "Gloves", eq_weapon: "Weapon", eq_shoes: "Shoes", eq_eye: "Eye Acc", eq_face: "Face Acc", eq_earrings: "Earrings", eq_cape: "Cape",
                 result_need_point: "Total Points Needed", label_measure_range: "Level Range", label_measure_time: "Time Taken (Min : Sec)",
-                label_exp_min: "EXP per Min (M)", label_cur_lv: "Current Lv", label_tar_lv: "Target Lv", label_rem_time: "Time until Midnight", label_rem_rebirth: "Rebirths Left (Max 20)",
+                label_exp_min: "EXP per Min (M)", label_cur_lv: "Current Lv", label_tar_lv: "Target Lv", label_rem_time: "Time until Midnight", label_rem_rebirth: "Rebirths Left (Max 15)",
                 btn_calc_eff: "Calculate Efficiency", result_time_to_tar: "Time to Target", result_point_at_tar: "Point at Target",
                 result_best_lv: "Best Recommended Level", result_rem_count: "Best Count", result_total_gain: "Total Expected Points",
-                time_hour: "h ", time_min: "m ", time_sec: "s", time_lack: "Lack of Time", alert_measure: "Please enter measure data."
+                time_hour: "h ", time_min: "m ", time_sec: "s", time_lack: "Lack of Time", alert_measure: "Please enter measure data.",
+                time_per_rebirth: "Time per Rebirth", time_total_rebirth: "Total Rebirth Time"
             },
             zh: {
                 nav_title: "转生计算器", nav_guide: "新手指南", card1_title: "转生 & 属性", card2_title: "效率计算",
                 label_rebirth_lv: "确认点数 (100-300)", btn_start: "开始", btn_stop: "停止", btn_reset: "重置", btn_apply: "记录",
                 stat_group_1: "1次属性 (展开)", stat_group_2: "2次属性 (展开)",
+                stat_group_arcane: "神秘徽章 (展开)", stat_group_equip: "装备栏强化 (展开)",
                 stat_dmg: "伤害", stat_exp: "额外经验", stat_crit: "暴击", stat_meso: "金币", stat_drop: "掉落", stat_speed: "攻速",
                 stat_crit_dmg: "暴击伤害", stat_main_stat: "主属性%", stat_ignore_def: "无视防御",
+                symbol_yeoro: "消亡旅途", symbol_chuchu: "啾啾岛", symbol_拉克兰: "拉克兰", symbol_arcana: "阿尔卡那", symbol_morass: "莫拉斯", symbol_esfera: "埃斯佩拉",
+                eq_hat: "帽子", eq_top: "上衣", eq_bottom: "裤子", eq_gloves: "手套", eq_weapon: "武器", eq_shoes: "鞋子", eq_eye: "眼饰", eq_face: "脸饰", eq_earrings: "耳环", eq_cape: "披风",
                 result_need_point: "所需转生点合计", label_measure_range: "测量区间", label_measure_time: "所需时间 (分 : 秒)",
-                label_exp_min: "每分钟经验 (M)", label_cur_lv: "当前等级", label_tar_lv: "目标等级", label_rem_time: "距离午夜时间", label_rem_rebirth: "剩余次数 (最大 20)",
+                label_exp_min: "每分钟经验 (M)", label_cur_lv: "当前等级", label_tar_lv: "目标等级", label_rem_time: "距离午夜时间", label_rem_rebirth: "剩余次数 (最大 15)",
                 btn_calc_eff: "综合效率计算", result_time_to_tar: "目标所需时间", result_point_at_tar: "到达时点数",
                 result_best_lv: "最高效率推荐等级", result_rem_count: "最佳次数", result_total_gain: "预计总点数",
-                time_hour: "时 ", time_min: "分 ", time_sec: "秒", time_lack: "时间不足", alert_measure: "请输入测量数据。"
+                time_hour: "时 ", time_min: "分 ", time_sec: "秒", time_lack: "时间不足", alert_measure: "请输入测量数据。",
+                time_per_rebirth: "每次转生时间", time_total_rebirth: "总转生时间"
             },
             tw: {
                 nav_title: "轉生計算器", nav_guide: "新手指南", card1_title: "轉生 & 屬性", card2_title: "效率計算",
                 label_rebirth_lv: "確認點數 (100-300)", btn_start: "開始", btn_stop: "停止", btn_reset: "重置", btn_apply: "記錄",
                 stat_group_1: "1次屬性 (展開)", stat_group_2: "2次屬性 (展開)",
+                stat_group_arcane: "神秘徽章 (展開)", stat_group_equip: "裝備欄強化 (展開)",
                 stat_dmg: "傷害", stat_exp: "額外經驗", stat_crit: "暴擊", stat_meso: "金幣", stat_drop: "掉落", stat_speed: "攻速",
                 stat_crit_dmg: "暴擊傷害", stat_main_stat: "主屬性%", stat_ignore_def: "無視防禦",
+                symbol_yeoro: "消亡旅途", symbol_chuchu: "啾啾島", symbol_lacheln: "拉克蘭", symbol_arcana: "阿爾卡那", symbol_morass: "莫拉斯", symbol_esfera: "埃斯佩拉",
+                eq_hat: "帽子", eq_top: "上衣", eq_bottom: "褲子", eq_gloves: "手套", eq_weapon: "武器", eq_shoes: "鞋子", eq_eye: "眼飾", eq_face: "臉飾", eq_earrings: "耳環", eq_cape: "披風",
                 result_need_point: "所需轉生點合計", label_measure_range: "測量區間", label_measure_time: "所需時間 (分 : 秒)",
-                label_exp_min: "每分鐘經驗 (M)", label_cur_lv: "當前等級", label_tar_lv: "目標等級", label_rem_time: "距離午夜時間", label_rem_遞迴: "剩餘次數 (最大 20)",
+                label_exp_min: "每分鐘經驗 (M)", label_cur_lv: "當前等級", label_tar_lv: "目標等級", label_rem_time: "距離午夜時間", label_rem_rebirth: "剩餘次數 (最大 15)",
                 btn_calc_eff: "綜合效率計算", result_time_to_tar: "目標所需時間", result_point_at_tar: "到達時點數",
                 result_best_lv: "最高效率推薦等級", result_rem_count: "最佳次數", result_total_gain: "預計總點數",
-                time_hour: "時 ", time_min: "分 ", time_sec: "秒", time_lack: "時間不足", alert_measure: "請輸入測量數據。"
+                time_hour: "時 ", time_min: "分 ", time_sec: "秒", time_lack: "時間不足", alert_measure: "請輸入測量數據。",
+                time_per_rebirth: "每次轉生時間", time_total_rebirth: "總轉生時間"
             }
         };
 
@@ -338,8 +406,8 @@
             138, 176, 214, 252, 290, 328, 366, 404, 442, 480, 518, 556, 594, 632, 670, 708, 746, 784, 822, 860, 898, 936, 974, 1012, 1050, 1088, 1126, 1164, 1202, 1240, 1278, 1316, 1354, 1392, 1430, 1468, 1506, 1544, 1582, 1620, 1658, 1696, 1734, 1772, 1810, 1848, 1886, 1924, 1962, 2000, 
             2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 10500, 11000, 11500, 12000, 
             14000, 16000, 18000, 20000, 22000, 24000, 26000, 28000, 30000, 32000, 34000, 36000, 38000, 40000, 42000, 44000, 46000, 48000, 50000, 52000, 54000, 56000, 58000, 60000, 62000, 64000, 66000, 68000, 70000, 72000, 
-            77000, 82000, 87000, 92000, 97000, 102000, 107000, 112000, 117000, 122000, 127000, 132000, 137000, 142000, 147000, 152000, 157000, 162000, 167000, 172000, 
-            192000, 212000, 232000, 252000, 272000, 292000, 312000, 332000, 352000, 372000, 392000, 412000, 432000, 452000, 472000, 492000, 512000, 532000, 552000, 572000, 592000, 612000, 632000, 652000, 672000, 692000, 712000, 732000, 752000, 772000, 792000
+            82000, 92000, 102000, 112000, 122000, 132000, 142000, 152000, 162000, 172000, 182000, 192000, 202000, 212000, 222000, 232000, 242000, 252000, 262000, 272000, 
+            312000, 352000, 392000, 432000, 472000, 512000, 552000, 592000, 632000, 672000, 712000, 752000, 792000, 832000, 872000, 912000, 952000, 992000, 1032000, 1072000, 1112000, 1152000, 1192000, 1232000, 1272000, 1312000, 1352000, 1392000, 1432000, 1472000, 1512000
         ];
         
         const expTable = [0,15,34,57,92,135,372,560,840,1242,1242,1242,1242,1242,1242,1242,1490,2145,2574,3088,3705,4446,5335,6402,7682,9218,11061,13273,15927,19112,19112,19112,19112,19112,19112,22934,27520,33024,39628,47553,51357,55465,59902,64694,69869,75458,81494,88013,95054,102658,110870,119739,129318,139663,150836,162902,175934,190008,205208,221624,221624,221624,221624,221624,221624,238245,256113,275321,295970,318167,342029,367681,395257,424901,456768,488741,522952,559558,598727,640637,685481,733464,784806,839742,898523,961419,1028718,1100728,1177778,1260222,1342136,1429374,1522283,1621231,1726611,1838840,1958364,2085657,2221224,2365603,2365603,2365603,2365603,2365603,2365603,2519367,2683125,2857528,3043267,3241079,3451749,3676112,3915059,4169537,4440556,4729192,5036589,5363967,5712624,6083944,6479400,6900561,7349097,7826788,8335529,8877338,9454364,10068897,10723375,11420394,12162719,12953295,13795259,14691950,15646926,16663976,17747134,18900697,20129242,21437642,22777494,24201087,25713654,27320757,29028304,30842573,32770233,34818372,36994520,39306677,41763344,44373553,47146900,50093581,53224429,56550955,60085389,63840725,67830770,72070193,76574580,81360491,86445521,91848366,97588888,103688193,110168705,117054249,124370139,132143272,138750435,145687956,152972353,160620970,168652018,177084618,185938848,195235790,204997579,215247457,226009829,237310320,249175836,261634627,274716358,288452175,302874783,318018522,333919448,350615420,368146191,386553500,405881175,426175233,447483994,469858193,493351102,518018657,543919589,571115568,2207026470,2471869646,2768494003,3100713283,3472798876,3889534741,4356278909,4879032378,5464516263,6120258214,7956335678,8831532602,9803001188,10881331318,12078277762,15701761090,17114919588,18655262350,20334235961,22164317197,28813612356,30830565220,32988704785,35297914119,37768768107,49099398539,52536356436,56213901386,60148874483,64359295696,83667084404,86177096936,88762409844,91425282139,94168040603,122418452783,126091006366,129873736556,133769948652,137783047111,179117961244,184491500081,190026245083,195727032435,201598843408,262078496430,269940851322,278039076861,286380249166,294971656640,442457484960,455731209508,469403145793,483485240166,497989797370,512929491291,528317376029,544166897309,560491904228,577306661354,1731919984062,1749239183902,1766731575741,1784398891498,1802242880412,2342915744535,2366344901980,2390008350999,2413908434508,2438047518853,5412465491853,5466590146771,5521256048238,5576468608720,5632233294807,11377111255510,12514822381061,13766304619167,15142935081083,16657228589191,33647601750165,37012361925181,40713598117699,44784957929468,49263453722414,99512176519276,109463394171203,120409733588323,132450706947155,145695777641870,294305470836577,323736017920234,356109619712257,391720581683482,430892639851830,870403132500696,957443445750765,1053187790325840,1158506569358420,1737759854037630];
@@ -373,6 +441,27 @@
                         const first = 1000, last = 1000 + (lv - 1) * 100;
                         total += (lv * (first + last)) / 2;
                     }
+                } else if (type === 'arcane') {
+                    // 아케인심볼 수정 누적 공식: 1레벨(3만), 2레벨(3만+6만=9만) ... 등차수열의 합 적용
+                    // (lv * (lv + 1)) / 2 * 30000 -> lv * (lv + 1) * 15000
+                    total += lv * (lv + 1) * 15000;
+                } else if (type === 'equip') {
+                    // 장비칸강화 공식
+                    // 1~10레벨 구간 계산
+                    const lv1 = Math.min(lv, 10);
+                    total += lv1 * 50000;
+                    
+                    // 11~20레벨 구간 계산
+                    if (lv > 10) {
+                        const lv2 = Math.min(lv, 20) - 10;
+                        total += lv2 * 150000;
+                    }
+                    
+                    // 21~30레벨 구간 계산
+                    if (lv > 20) {
+                        const lv3 = Math.min(lv, 30) - 20;
+                        total += lv3 * 300000;
+                    }
                 }
             });
             document.getElementById('totalStatPoint').innerText = total.toLocaleString();
@@ -398,7 +487,7 @@
             const remH = parseInt(document.getElementById('remH').value) || 0;
             const remM = parseInt(document.getElementById('remM').value) || 0;
             const remCntInput = parseInt(document.getElementById('remRebirth').value) || 0;
-            const remCnt = Math.min(20, remCntInput);
+            const remCnt = Math.min(15, remCntInput);
 
             let dps = 0;
 
@@ -428,6 +517,7 @@
 
             const availSec = (remH * 3600) + (remM * 60);
             let bestLv = 0, bestCount = 0, maxTotalExpected = 0;
+            let bestTimePerRebirth = 0;
 
             if(availSec > 0 && remCnt > 0) {
                 for(let lv = 100; lv <= 300; lv++) {
@@ -443,6 +533,7 @@
                             maxTotalExpected = totalExpected;
                             bestLv = lv;
                             bestCount = actualCount;
+                            bestTimePerRebirth = timePerRebirth;
                         }
                     }
                 }
@@ -451,15 +542,22 @@
                     document.getElementById('recommendLv').innerText = i18n[currentLang].time_lack;
                     document.getElementById('resRemCount').innerText = "-";
                     document.getElementById('resTotalExpected').innerText = "-";
+                    document.getElementById('resTimePerRebirth').innerText = "-";
+                    document.getElementById('resTimeTotalRebirth').innerText = "-";
                 } else {
                     document.getElementById('recommendLv').innerText = bestLv + " Lv";
                     document.getElementById('resRemCount').innerText = bestCount + (currentLang === 'ko' ? " 회" : (currentLang === 'en' ? " Counts" : " 次"));
                     document.getElementById('resTotalExpected').innerText = maxTotalExpected.toLocaleString() + " P";
+                    
+                    document.getElementById('resTimePerRebirth').innerText = formatTime(bestTimePerRebirth);
+                    document.getElementById('resTimeTotalRebirth').innerText = formatTime(bestTimePerRebirth * bestCount);
                 }
             } else {
                 document.getElementById('recommendLv').innerText = "-";
                 document.getElementById('resRemCount').innerText = "-";
                 document.getElementById('resTotalExpected').innerText = "-";
+                document.getElementById('resTimePerRebirth').innerText = "-";
+                document.getElementById('resTimeTotalRebirth').innerText = "-";
             }
         }
 
