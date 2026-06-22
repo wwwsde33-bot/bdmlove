@@ -164,6 +164,10 @@
                 <h2 data-i18n="card1_title">환생 & 스탯 계산기</h2>
                 <label data-i18n="label_rebirth_lv">환생 레벨 포인트 확인 (100~300)</label>
                 <input type="number" id="pointLvInput" placeholder="Lv" oninput="calPoint()">
+                
+                <label style="margin-top: 12px;" data-i18n="label_add_point_pct_1">환생포인트 추가량 (0~90%)</label>
+                <input type="number" id="addPointPctInput1" placeholder="%" min="0" max="90" value="0" oninput="calPoint()">
+
                 <div id="pointDisplay" style="text-align:right; margin: 8px 0; color:var(--accent-color); font-weight:bold; font-size:1.1rem;">0 P</div>
 
                 <div class="stopwatch-container">
@@ -275,6 +279,12 @@
                     <div style="flex:1"><label data-i18n="label_rem_time">자정까지 남은 시간</label><div style="display:flex; gap:5px;"><input type="number" id="remH" placeholder="H">:<input type="number" id="remM" placeholder="M"></div></div>
                     <div style="flex:1"><label data-i18n="label_rem_rebirth">남은 환생 횟수 (최대 15)</label><input type="number" id="remRebirth" value="0"></div>
                 </div>
+
+                <div style="margin-bottom:15px;">
+                    <label data-i18n="label_add_point_pct_2">환생포인트 추가량 (0~90%)</label>
+                    <input type="number" id="addPointPctInput2" placeholder="%" min="0" max="90" value="0">
+                </div>
+
                 <button class="calc-btn" onclick="calTime()" data-i18n="btn_calc_eff">종합 효율 계산하기</button>
 
                 <div class="result-box" id="timeResultBox" style="display:none;">
@@ -316,7 +326,8 @@
                 btn_calc_eff: "종합 효율 계산하기", result_time_to_tar: "목표까지 소요시간", result_point_at_tar: "도달 시 환생포인트",
                 result_best_lv: "최고 효율 추천 환생 레벨", result_rem_count: "최적 환생 횟수", result_total_gain: "총 예상 획득 포인트",
                 time_hour: "시간 ", time_min: "분 ", time_sec: "초", time_lack: "시간부족", alert_measure: "측정 데이터를 입력해주세요.",
-                time_per_rebirth: "회당 소요 시간", time_total_rebirth: "총 소요 시간"
+                time_per_rebirth: "회당 소요 시간", time_total_rebirth: "총 소요 시간",
+                label_add_point_pct_1: "환생포인트 추가량 (0~90%)", label_add_point_pct_2: "환생포인트 추가량 (0~90%)"
             },
             en: {
                 nav_title: "BBM Calc", nav_guide: "Newbie Guide", card1_title: "Rebirth & Stat", card2_title: "Efficiency Calc",
@@ -332,7 +343,8 @@
                 btn_calc_eff: "Calculate Efficiency", result_time_to_tar: "Time to Target", result_point_at_tar: "Point at Target",
                 result_best_lv: "Best Recommended Level", result_rem_count: "Best Count", result_total_gain: "Total Expected Points",
                 time_hour: "h ", time_min: "m ", time_sec: "s", time_lack: "Lack of Time", alert_measure: "Please enter measure data.",
-                time_per_rebirth: "Time per Rebirth", time_total_rebirth: "Total Rebirth Time"
+                time_per_rebirth: "Time per Rebirth", time_total_rebirth: "Total Rebirth Time",
+                label_add_point_pct_1: "Bonus Rebirth Point (0-90%)", label_add_point_pct_2: "Bonus Rebirth Point (0-90%)"
             },
             zh: {
                 nav_title: "转生计算器", nav_guide: "新手指南", card1_title: "转生 & 属性", card2_title: "效率计算",
@@ -348,7 +360,8 @@
                 btn_calc_eff: "综合效率计算", result_time_to_tar: "目标所需时间", result_point_at_tar: "到达时点数",
                 result_best_lv: "最高效率推荐等级", result_rem_count: "最佳次数", result_total_gain: "预计总点数",
                 time_hour: "时 ", time_min: "分 ", time_sec: "秒", time_lack: "时间不足", alert_measure: "请输入测量数据。",
-                time_per_rebirth: "每次转生时间", time_total_rebirth: "总转生时间"
+                time_per_rebirth: "每次转生时间", time_total_rebirth: "总转生时间",
+                label_add_point_pct_1: "额外转生点数 (0-90%)", label_add_point_pct_2: "额外转生点数 (0-90%)"
             },
             tw: {
                 nav_title: "轉生計算器", nav_guide: "新手指南", card1_title: "轉生 & 屬性", card2_title: "效率計算",
@@ -364,7 +377,8 @@
                 btn_calc_eff: "綜合效率計算", result_time_to_tar: "目標所需時間", result_point_at_tar: "到達時點數",
                 result_best_lv: "最高效率推薦轉生等級", result_rem_count: "最佳次數", result_total_gain: "預計總點數",
                 time_hour: "時 ", time_min: "分 ", time_sec: "秒", time_lack: "時間不足", alert_measure: "請輸入測量數據。",
-                time_per_rebirth: "每次轉生時間", time_total_rebirth: "總轉生時間"
+                time_per_rebirth: "每次轉生時間", time_total_rebirth: "總轉生時間",
+                label_add_point_pct_1: "額外轉生點數 (0-90%)", label_add_point_pct_2: "額外轉生點數 (0-90%)"
             }
         };
 
@@ -415,7 +429,19 @@
         function calPoint() {
             let v = parseInt(document.getElementById('pointLvInput').value);
             if(v > 300) { v = 300; document.getElementById('pointLvInput').value = 300; }
-            document.getElementById('pointDisplay').innerText = (v >= 100) ? pointData[v-100].toLocaleString() + " P" : "0 P";
+            
+            // 추가량 반영 (최대 90% 제한 검증 포함)
+            let addPct = parseFloat(document.getElementById('addPointPctInput1').value) || 0;
+            if (addPct > 90) { addPct = 90; document.getElementById('addPointPctInput1').value = 90; }
+            if (addPct < 0) { addPct = 0; document.getElementById('addPointPctInput1').value = 0; }
+
+            if (v >= 100) {
+                let basePoint = pointData[v-100];
+                let finalPoint = Math.floor(basePoint * (1 + addPct / 100));
+                document.getElementById('pointDisplay').innerText = finalPoint.toLocaleString() + " P";
+            } else {
+                document.getElementById('pointDisplay').innerText = "0 P";
+            }
         }
 
         const statInputs = document.querySelectorAll('.stat-in');
@@ -501,6 +527,11 @@
             const remCntInput = parseInt(document.getElementById('remRebirth').value) || 0;
             const remCnt = Math.min(15, remCntInput);
 
+            // 추가량 반영 (최대 90% 제한 검증 포함)
+            let addPct = parseFloat(document.getElementById('addPointPctInput2').value) || 0;
+            if (addPct > 90) { addPct = 90; document.getElementById('addPointPctInput2').value = 90; }
+            if (addPct < 0) { addPct = 0; document.getElementById('addPointPctInput2').value = 0; }
+
             let dps = 0;
 
             if (mode === 'level') {
@@ -525,7 +556,15 @@
             for(let i = curLv; i < tarLv; i++) { if(expTable[i]) tarExp += expTable[i]; }
             
             document.getElementById('resTotalTime').innerText = formatTime(tarExp / dps);
-            document.getElementById('resTotalPoint').innerText = (tarLv >= 100 ? pointData[tarLv-100].toLocaleString() : 0) + " P";
+            
+            // 목표 도달 시 환생포인트 부분에도 추가량 반영
+            if (tarLv >= 100) {
+                let baseTarPoint = pointData[tarLv-100];
+                let finalTarPoint = Math.floor(baseTarPoint * (1 + addPct / 100));
+                document.getElementById('resTotalPoint').innerText = finalTarPoint.toLocaleString() + " P";
+            } else {
+                document.getElementById('resTotalPoint').innerText = "0 P";
+            }
 
             const availSec = (remH * 3600) + (remM * 60);
             let bestLv = 0, bestCount = 0, maxTotalExpected = 0;
@@ -540,7 +579,11 @@
                     let actualCount = Math.min(remCnt, possibleCount);
                     
                     if (actualCount > 0) {
-                        let totalExpected = pointData[lv-100] * actualCount;
+                        // 각 추천 단계 기대 포인트에 추가량(addPct) 곱연산 반영
+                        let baseLvPoint = pointData[lv-100];
+                        let finalLvPoint = Math.floor(baseLvPoint * (1 + addPct / 100));
+                        let totalExpected = finalLvPoint * actualCount;
+
                         if (totalExpected >= maxTotalExpected) {
                             maxTotalExpected = totalExpected;
                             bestLv = lv;
