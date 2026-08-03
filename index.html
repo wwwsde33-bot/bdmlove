@@ -119,6 +119,7 @@
             font-size: 16px;
         }
         #newbieSection .section-header span:first-child::before { content: '🌱'; }
+        #potentialSection .section-header span:first-child::before { content: '💎'; }
         #scrollSection .section-header span:first-child::before { content: '📜'; }
         #statSection .section-header span:first-child::before { content: '📊'; }
         #upgradeSection .section-header span:first-child::before { content: '⭐'; }
@@ -148,7 +149,7 @@
         }
 
         .section-box.active .section-content {
-            max-height: 1800px;
+            max-height: 3500px;
             padding: 16px 20px 20px 20px;
         }
 
@@ -398,7 +399,7 @@
 <div class="container">
     <h1>✨ 방치형RPG 메이플 웨폰마스터 ✨</h1>
 
-    <!-- 1. 뉴비 육성 방법 섹션 (기본 닫힘 상태) -->
+    <!-- 1. 뉴비 육성 방법 섹션 -->
     <div class="section-box" id="newbieSection">
         <div class="section-header" onclick="toggleSection('newbieSection')">
             <span>뉴비 육성 방법</span>
@@ -502,7 +503,151 @@
         </div>
     </div>
 
-    <!-- 3. 잠재부여 주문서 드랍처 섹션 -->
+    <!-- 3. 잠재옵션 추천 및 수치표 섹션 (위치 이동 완료) -->
+    <div class="section-box" id="potentialSection">
+        <div class="section-header" onclick="toggleSection('potentialSection')">
+            <span>잠재옵션 추천 및 수치표</span>
+            <span class="arrow">▼</span>
+        </div>
+        <div class="section-content">
+            <!-- 잠재옵션 추천 가이드 카드 -->
+            <div class="info-card" style="border-left-color: #c084fc; margin-bottom: 16px;">
+                <div style="font-size: 15px; font-weight: 800; color: #f0abfc; margin-bottom: 10px;">✨ 잠재옵션 추천 가이드</div>
+                <ul class="rate-list" style="margin-bottom: 12px;">
+                    <li class="rate-item"><span>🔥 1순위</span> <span>크리티컬대미지 , 최종공격력 , 공격력 , 보스공격시대미지</span></li>
+                    <li class="rate-item"><span>⚡ 2순위</span> <span>스킬대미지 , 몬스터방어율무시</span></li>
+                    <li class="rate-item"><span>🎁 유틸</span> <span>경험치 , 아이템드롭률 , 골드획득량 <span style="font-size:12px; color:#cbd5e1;">(순위 없이 많이 원하면 많이 뽑기)</span></span></li>
+                    <li class="rate-item"><span>❓ 미적용</span> <span>스타포스 , 아케인포스 , 어센틱포스 <span style="font-size:12px; color:#cbd5e1;">(아직 효과 없는것 같은데 생기면 바로 수정하겠습니다)</span></span></li>
+                </ul>
+                <div style="font-size: 13.5px; color: var(--text-sub); background: rgba(0,0,0,0.3); padding: 12px 14px; border-radius: 8px; line-height: 1.6;">
+                    <p style="margin: 0 0 8px 0;"><strong>※ 스댐이랑 크댐:</strong> 강화나 스탯에서 10/1 비율로 올리는데 잠재에서는 1/1이라서 크댐이 효율이 압도적으로 좋습니다.</p>
+                    <p style="margin: 0;"><strong>※ 보스공격시대미지:</strong> 100%당 내 원래 대미지의 2배로 올라가는 구조 (레이드 한정 아주 좋은 옵션이니 개인적으로는 레이드 잡기가 힘든만큼 어느정도는 뽑아야한다고 생각합니다).</p>
+                </div>
+            </div>
+
+            <!-- 수치표 카드 (별 5개가 최대치 고정이 아닌 구간 범위형으로 수정) -->
+            <div class="cube-card" style="border-left-color: #38bdf8;">
+                <div class="cube-title">
+                    <span class="cube-name">📊 등급별 잠재옵션 수치표</span>
+                    <span class="max-badge">레어 ~ 에인션트</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: center; margin-top: 8px;">
+                        <thead>
+                            <tr style="background: rgba(30, 41, 59, 0.9); color: #f1f5f9; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <th style="padding: 10px; text-align: left;">옵션명</th>
+                                <th style="padding: 10px;">레어 (⭐1~5)</th>
+                                <th style="padding: 10px;">에픽 (⭐1~5)</th>
+                                <th style="padding: 10px;">유니크 (⭐1~5)</th>
+                                <th style="padding: 10px;">레전드리 (⭐1~5)</th>
+                                <th style="padding: 10px;">에인션트 (⭐1~5)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">크리티컬 데미지%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 5000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1800<br>⭐2: 1800~2600<br>⭐3: 2600~3400<br>⭐4: 3400~4200<br>⭐5: 4200~5000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">5000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 5000~6000<br>⭐2: 6000~7000<br>⭐3: 7000~8000<br>⭐4: 8000~9000<br>⭐5: 9000~10000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10000 ~ 30000<br><span style="font-size:11px; color:#facc15;">⭐1: 1만~1.4만<br>⭐2: 1.4만~1.8만<br>⭐3: 1.8만~2.2만<br>⭐4: 2.2만~2.6만<br>⭐5: 2.6만~3만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30000 ~ 75000<br><span style="font-size:11px; color:#facc15;">⭐1: 3만~3.9만<br>⭐2: 3.9만~4.8만<br>⭐3: 4.8만~5.7만<br>⭐4: 5.7만~6.6만<br>⭐5: 6.6만~7.5만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">100000 ~ 300000<br><span style="font-size:11px; color:#facc15;">⭐1: 10만~14만<br>⭐2: 14만~18만<br>⭐3: 18만~22만<br>⭐4: 22만~26만<br>⭐5: 26만~30만</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">스킬 데미지%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 5000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1800<br>⭐2: 1800~2600<br>⭐3: 2600~3400<br>⭐4: 3400~4200<br>⭐5: 4200~5000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">5000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 5000~6000<br>⭐2: 6000~7000<br>⭐3: 7000~8000<br>⭐4: 8000~9000<br>⭐5: 9000~10000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10000 ~ 30000<br><span style="font-size:11px; color:#facc15;">⭐1: 1만~1.4만<br>⭐2: 1.4만~1.8만<br>⭐3: 1.8만~2.2만<br>⭐4: 2.2만~2.6만<br>⭐5: 2.6만~3만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30000 ~ 75000<br><span style="font-size:11px; color:#facc15;">⭐1: 3만~3.9만<br>⭐2: 3.9만~4.8만<br>⭐3: 4.8만~5.7만<br>⭐4: 5.7만~6.6만<br>⭐5: 6.6만~7.5만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">100000 ~ 300000<br><span style="font-size:11px; color:#facc15;">⭐1: 10만~14만<br>⭐2: 14만~18만<br>⭐3: 18만~22만<br>⭐4: 22만~26만<br>⭐5: 26만~30만</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">골드%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">100 ~ 500<br><span style="font-size:11px; color:#facc15;">⭐1: 100~180<br>⭐2: 180~260<br>⭐3: 260~340<br>⭐4: 340~420<br>⭐5: 420~500</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 3000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1400<br>⭐2: 1400~1800<br>⭐3: 1800~2200<br>⭐4: 2200~2600<br>⭐5: 2600~3000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">5000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 5000~6000<br>⭐2: 6000~7000<br>⭐3: 7000~8000<br>⭐4: 8000~9000<br>⭐5: 9000~10000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10000 ~ 30000<br><span style="font-size:11px; color:#facc15;">⭐1: 1만~1.4만<br>⭐2: 1.4만~1.8만<br>⭐3: 1.8만~2.2만<br>⭐4: 2.2만~2.6만<br>⭐5: 2.6만~3만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30000 ~ 100000<br><span style="font-size:11px; color:#facc15;">⭐1: 3만~4.4만<br>⭐2: 4.4만~5.8만<br>⭐3: 5.8만~7.2만<br>⭐4: 7.2만~8.6만<br>⭐5: 8.6만~10만</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">경험치%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">100 ~ 300<br><span style="font-size:11px; color:#facc15;">⭐1: 100~140<br>⭐2: 140~180<br>⭐3: 180~220<br>⭐4: 220~260<br>⭐5: 260~300</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">300 ~ 500<br><span style="font-size:11px; color:#facc15;">⭐1: 300~340<br>⭐2: 340~380<br>⭐3: 380~420<br>⭐4: 420~460<br>⭐5: 460~500</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">500 ~ 1000<br><span style="font-size:11px; color:#facc15;">⭐1: 500~600<br>⭐2: 600~700<br>⭐3: 700~800<br>⭐4: 800~900<br>⭐5: 900~1000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 3000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1400<br>⭐2: 1400~1800<br>⭐3: 1800~2200<br>⭐4: 2200~2600<br>⭐5: 2600~3000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">3000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 3000~4400<br>⭐2: 4400~5800<br>⭐3: 5800~7200<br>⭐4: 7200~8600<br>⭐5: 8600~10000</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">드롭률%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">10 (고정)</td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 (고정)</td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 (고정)</td>
+                                <td style="padding: 8px; color:var(--text-sub);">40 (고정)</td>
+                                <td style="padding: 8px; color:var(--text-sub);">100 (고정)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">최종공격력%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">100 ~ 500<br><span style="font-size:11px; color:#facc15;">⭐1: 100~180<br>⭐2: 180~260<br>⭐3: 260~340<br>⭐4: 340~420<br>⭐5: 420~500</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 3000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1400<br>⭐2: 1400~1800<br>⭐3: 1800~2200<br>⭐4: 2200~2600<br>⭐5: 2600~3000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">5000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 5000~6000<br>⭐2: 6000~7000<br>⭐3: 7000~8000<br>⭐4: 8000~9000<br>⭐5: 9000~10000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10000 ~ 30000<br><span style="font-size:11px; color:#facc15;">⭐1: 1만~1.4만<br>⭐2: 1.4만~1.8만<br>⭐3: 1.8만~2.2만<br>⭐4: 2.2만~2.6만<br>⭐5: 2.6만~3만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">100000 ~ 300000<br><span style="font-size:11px; color:#facc15;">⭐1: 10만~14만<br>⭐2: 14만~18만<br>⭐3: 18만~22만<br>⭐4: 22만~26만<br>⭐5: 26만~30만</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">공격력%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">100 ~ 500<br><span style="font-size:11px; color:#facc15;">⭐1: 100~180<br>⭐2: 180~260<br>⭐3: 260~340<br>⭐4: 340~420<br>⭐5: 420~500</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">1000 ~ 3000<br><span style="font-size:11px; color:#facc15;">⭐1: 1000~1400<br>⭐2: 1400~1800<br>⭐3: 1800~2200<br>⭐4: 2200~2600<br>⭐5: 2600~3000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">5000 ~ 10000<br><span style="font-size:11px; color:#facc15;">⭐1: 5000~6000<br>⭐2: 6000~7000<br>⭐3: 7000~8000<br>⭐4: 8000~9000<br>⭐5: 9000~10000</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10000 ~ 30000<br><span style="font-size:11px; color:#facc15;">⭐1: 1만~1.4만<br>⭐2: 1.4만~1.8만<br>⭐3: 1.8만~2.2만<br>⭐4: 2.2만~2.6만<br>⭐5: 2.6만~3만</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">100000 ~ 300000<br><span style="font-size:11px; color:#facc15;">⭐1: 10만~14만<br>⭐2: 14만~18만<br>⭐3: 18만~22만<br>⭐4: 22만~26만<br>⭐5: 26만~30만</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">보스공격시 데미지%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">5 ~ 10<br><span style="font-size:11px; color:#facc15;">⭐1: 5~6<br>⭐2: 6~7<br>⭐3: 7~8<br>⭐4: 8~9<br>⭐5: 9~10</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10 ~ 20<br><span style="font-size:11px; color:#facc15;">⭐1: 10~12<br>⭐2: 12~14<br>⭐3: 14~16<br>⭐4: 16~18<br>⭐5: 18~20</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 ~ 30<br><span style="font-size:11px; color:#facc15;">⭐1: 20~22<br>⭐2: 22~24<br>⭐3: 24~26<br>⭐4: 26~28<br>⭐5: 28~30</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 ~ 50<br><span style="font-size:11px; color:#facc15;">⭐1: 30~34<br>⭐2: 34~38<br>⭐3: 38~42<br>⭐4: 42~46<br>⭐5: 46~50</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">50 ~ 200<br><span style="font-size:11px; color:#facc15;">⭐1: 50~80<br>⭐2: 80~110<br>⭐3: 110~140<br>⭐4: 140~170<br>⭐5: 170~200</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">스타포스</td>
+                                <td style="padding: 8px; color:var(--text-sub);">5 ~ 20<br><span style="font-size:11px; color:#facc15;">⭐1: 5~8<br>⭐2: 8~11<br>⭐3: 11~14<br>⭐4: 14~17<br>⭐5: 17~20</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 ~ 30<br><span style="font-size:11px; color:#facc15;">⭐1: 20~22<br>⭐2: 22~24<br>⭐3: 24~26<br>⭐4: 26~28<br>⭐5: 28~30</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 ~ 40<br><span style="font-size:11px; color:#facc15;">⭐1: 30~32<br>⭐2: 32~34<br>⭐3: 34~36<br>⭐4: 36~38<br>⭐5: 38~40</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">40 ~ 60<br><span style="font-size:11px; color:#facc15;">⭐1: 40~44<br>⭐2: 44~48<br>⭐3: 48~52<br>⭐4: 52~56<br>⭐5: 56~60</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">60 ~ 200<br><span style="font-size:11px; color:#facc15;">⭐1: 60~88<br>⭐2: 88~116<br>⭐3: 116~144<br>⭐4: 144~172<br>⭐5: 172~200</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">아케인포스</td>
+                                <td style="padding: 8px; color:var(--text-sub);">5 ~ 20<br><span style="font-size:11px; color:#facc15;">⭐1: 5~8<br>⭐2: 8~11<br>⭐3: 11~14<br>⭐4: 14~17<br>⭐5: 17~20</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 ~ 30<br><span style="font-size:11px; color:#facc15;">⭐1: 20~22<br>⭐2: 22~24<br>⭐3: 24~26<br>⭐4: 26~28<br>⭐5: 28~30</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 ~ 40<br><span style="font-size:11px; color:#facc15;">⭐1: 30~32<br>⭐2: 32~34<br>⭐3: 34~36<br>⭐4: 36~38<br>⭐5: 38~40</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">40 ~ 60<br><span style="font-size:11px; color:#facc15;">⭐1: 40~44<br>⭐2: 44~48<br>⭐3: 48~52<br>⭐4: 52~56<br>⭐5: 56~60</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">60 ~ 200<br><span style="font-size:11px; color:#facc15;">⭐1: 60~88<br>⭐2: 88~116<br>⭐3: 116~144<br>⭐4: 144~172<br>⭐5: 172~200</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">어센틱포스</td>
+                                <td style="padding: 8px; color:var(--text-sub);">5 ~ 20<br><span style="font-size:11px; color:#facc15;">⭐1: 5~8<br>⭐2: 8~11<br>⭐3: 11~14<br>⭐4: 14~17<br>⭐5: 17~20</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 ~ 30<br><span style="font-size:11px; color:#facc15;">⭐1: 20~22<br>⭐2: 22~24<br>⭐3: 24~26<br>⭐4: 26~28<br>⭐5: 28~30</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 ~ 40<br><span style="font-size:11px; color:#facc15;">⭐1: 30~32<br>⭐2: 32~34<br>⭐3: 34~36<br>⭐4: 36~38<br>⭐5: 38~40</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">40 ~ 60<br><span style="font-size:11px; color:#facc15;">⭐1: 40~44<br>⭐2: 44~48<br>⭐3: 48~52<br>⭐4: 52~56<br>⭐5: 56~60</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">60 ~ 200<br><span style="font-size:11px; color:#facc15;">⭐1: 60~88<br>⭐2: 88~116<br>⭐3: 116~144<br>⭐4: 144~172<br>⭐5: 172~200</span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; font-weight:600; color:#f1f5f9; text-align:left;">방어율 무시%</td>
+                                <td style="padding: 8px; color:var(--text-sub);">5 ~ 10<br><span style="font-size:11px; color:#facc15;">⭐1: 5~6<br>⭐2: 6~7<br>⭐3: 7~8<br>⭐4: 8~9<br>⭐5: 9~10</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">10 ~ 20<br><span style="font-size:11px; color:#facc15;">⭐1: 10~12<br>⭐2: 12~14<br>⭐3: 14~16<br>⭐4: 16~18<br>⭐5: 18~20</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">20 ~ 30<br><span style="font-size:11px; color:#facc15;">⭐1: 20~22<br>⭐2: 22~24<br>⭐3: 24~26<br>⭐4: 26~28<br>⭐5: 28~30</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">30 ~ 50<br><span style="font-size:11px; color:#facc15;">⭐1: 30~34<br>⭐2: 34~38<br>⭐3: 38~42<br>⭐4: 42~46<br>⭐5: 46~50</span></td>
+                                <td style="padding: 8px; color:var(--text-sub);">50 ~ 200<br><span style="font-size:11px; color:#facc15;">⭐1: 50~80<br>⭐2: 80~110<br>⭐3: 110~140<br>⭐4: 140~170<br>⭐5: 170~200</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 잠재부여 주문서 드랍처 섹션 -->
     <div class="section-box" id="scrollSection">
         <div class="section-header" onclick="toggleSection('scrollSection')">
             <span>잠재부여 주문서 드랍처</span>
@@ -510,10 +655,10 @@
         </div>
         <div class="section-content">
             <div class="scroll-item">
-                <div class="scroll-name">📜 잠재능력 주문서 50% <span style="font-size: 12px; font-weight: 500; color: #94a3b8;"> </span></div>
+                <div class="scroll-name">📜 잠재능력 주문서 50%</div>
                 <div class="scroll-desc">
                     <span class="drop-tag">드랍처</span>
-                    <span><strong>300챕터 이상 ~ 극악 드랍</strong> </span>
+                    <span><strong>300챕터 이상 ~ 극악 드랍</strong></span>
                 </div>
             </div>
             <div class="scroll-item">
@@ -554,7 +699,7 @@
         </div>
     </div>
 
-    <!-- 4. 스탯 가이드 섹션 -->
+    <!-- 5. 스탯 가이드 섹션 -->
     <div class="section-box" id="statSection">
         <div class="section-header" onclick="toggleSection('statSection')">
             <span>스탯 투자</span>
@@ -569,7 +714,7 @@
         </div>
     </div>
 
-    <!-- 5. 강화 가이드 섹션 -->
+    <!-- 6. 강화 가이드 섹션 -->
     <div class="section-box" id="upgradeSection">
         <div class="section-header" onclick="toggleSection('upgradeSection')">
             <span>강화 투자</span>
